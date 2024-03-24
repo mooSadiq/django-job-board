@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path 
 from job.views import job_list, job_detail, add_job
+from job.api import joblistapi, job_detail_api
 from contact.views import send_message
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,8 +30,10 @@ urlpatterns = [
   path('add', add_job, name="add_job"),
   path('jobDetail/<str:job_slug>', job_detail, name="detail"),
   path('contact', send_message, name="contact"),
-  path('api-auth/', include('rest_framework.urls'))
-    
+  path('api-auth/', include('rest_framework.urls')),
+  path('apilist', joblistapi, name='joblistapi'),
+  path('jobdetailapi/<int:job_id>', job_detail_api, name="jobdetailapi"),
+  
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
